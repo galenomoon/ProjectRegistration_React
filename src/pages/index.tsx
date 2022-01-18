@@ -11,6 +11,13 @@ export default function Home() {
     new Client("Apollo", 17, "5"),
   ];
 
+  function selectedClient(client: Client) {
+    console.log(client.name);
+  }
+  function deletedClient(client: Client) {
+    console.log(`usuário ${client.name} foi apagado`);
+  }
+
   return (
     <div
       className={`
@@ -18,7 +25,7 @@ export default function Home() {
       from-purple-500 to-blue-300 text-white`}
     >
       <Layout title="Simple | Sig-in">
-        <Table clients={clients}></Table>
+        <Table clients={clients} selectedClient={selectedClient} deletedClient={deletedClient} />
       </Layout>
     </div>
   );
