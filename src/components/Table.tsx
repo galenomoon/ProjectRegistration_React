@@ -8,9 +8,9 @@ export default function Table(props: TableProps) {
   function renderHeader() {
     return (
       <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <th>Age</th>
+        <th className="text-center p-2">Code</th>
+        <th className="text-center p-2">Name</th>
+        <th className="text-center p-2">Age</th>
       </tr>
     );
   }
@@ -18,18 +18,28 @@ export default function Table(props: TableProps) {
   function renderData() {
     return props.clients?.map((client, i) => {
       return (
-        <tr key={client.id}>
-          <td>{client.id}</td>
-          <td>{client.name}</td>
-          <td>{client.age}</td>
+        <tr
+          key={client.id}
+          className={`${i % 2 === 0 ? "bg-purple-200" : "bg-purple-100"}`}
+        >
+          <td className="text-center p-1">{client.id}</td>
+          <td className="text-center p-1">{client.name}</td>
+          <td className="text-center p-1">{client.age}</td>
         </tr>
       );
     });
   }
 
   return (
-    <table>
-      <thead>{renderHeader()}</thead>
+    <table className={`w-full rounded-xl overflow-hidden`}>
+      <thead
+        className={`
+      text-gray-100
+      bg-gradient-to-r from-purple-700 to-blue-700 
+      `}
+      >
+        {renderHeader()}
+      </thead>
       <tbody>{renderData()}</tbody>
     </table>
   );
