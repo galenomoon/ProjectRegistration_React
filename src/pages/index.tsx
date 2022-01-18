@@ -1,3 +1,4 @@
+import Button from "../components/button";
 import Layout from "../components/Layout";
 import Table from "../components/Table";
 import Client from "../core/Client";
@@ -25,7 +26,14 @@ export default function Home() {
       from-purple-500 to-blue-300 text-white`}
     >
       <Layout title="Simple | Sig-in">
-        <Table clients={clients} selectedClient={selectedClient} deletedClient={deletedClient} />
+        <div className={`flex justify-end`}>
+          <Button className="mb-4">New Client</Button>
+        </div>
+        <Table
+          clients={clients}
+          selectedClient={selectedClient}
+          deletedClient={deletedClient}
+        />
       </Layout>
     </div>
   );
