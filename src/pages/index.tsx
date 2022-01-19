@@ -2,6 +2,7 @@ import Button from "../components/button";
 import Layout from "../components/Layout";
 import Table from "../components/Table";
 import Client from "../core/Client";
+import Form from "../components/Form";
 
 export default function Home() {
   const clients = [
@@ -27,13 +28,14 @@ export default function Home() {
     >
       <Layout title="Simple | Sig-in">
         <div className={`flex justify-end`}>
-          <Button className="mb-4">New Client</Button>
+          <Button className="mb-4 bg-gradient-to-r from-green-400 to-green-600">New Client</Button>
         </div>
         <Table
           clients={clients}
           selectedClient={selectedClient}
           deletedClient={deletedClient}
         />
+        <Form client={clients[2]}></Form>
       </Layout>
     </div>
   );
