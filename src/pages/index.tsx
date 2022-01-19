@@ -3,30 +3,37 @@ import Layout from "../components/Layout";
 import Table from "../components/Table";
 import Client from "../core/Client";
 import Form from "../components/Form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ClientRepository from "../core/ClientRepository";
+import ClientCollection from "../backend/db/ClientCollection";
 
 export default function Home() {
+  const repo: ClientRepository = new ClientCollection();
+
   const [client, setClient] = useState<Client>(Client.empty());
+  const [clients, setClients] = useState<Client[]>([]);
   const [visible, setVisible] = useState<"table" | "form">("table");
 
-  const clients = [
-    new Client("Galeno", 19, "1"),
-    new Client("Lua", 18, "2"),
-    new Client("Gusta", 18, "3"),
-    new Client("Isa", 13, "4"),
-    new Client("Apollo", 17, "5"),
-  ];
+  useEffect(getAll, []);
+
+  function getAll() {
+    repo.getAll().then((clients) => {
+      setClients(clients);
+      setVisible("table");
+    });
+  }
 
   function selectedClient(client: Client) {
     setClient(client);
     setVisible("form");
   }
-  function deletedClient(client: Client) {
-    console.log(`usuário ${client.name} foi apagado`);
+  async function deletedClient(client: Client) {
+    await repo.delete(client);
+    getAll();
   }
-  function saveClient(client: Client) {
-    console.log(client);
-    setVisible("table");
+  async function saveClient(client: Client) {
+    await repo.save(client);
+    getAll();
   }
   function newClient(client: Client) {
     setClient(Client.empty());
@@ -40,7 +47,6 @@ export default function Home() {
       from-purple-500 to-blue-300 text-white`}
     >
       <Layout title="Simple | Sig-in">
-        
         {visible === "table" ? (
           <>
             <div className={`flex justify-end`}>
