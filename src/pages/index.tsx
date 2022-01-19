@@ -5,17 +5,16 @@ import Form from "../components/Form";
 import useClients from "../hooks/useClient";
 
 export default function Home() {
-
-  const { 
-    client, 
-    clients, 
+  const {
+    client,
+    clients,
     newClient,
     saveClient,
     selectedClient,
     deleteClient,
     tableVisible,
-    showTable
-    } = useClients()
+    showTable,
+  } = useClients();
 
   return (
     <div

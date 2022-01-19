@@ -9,7 +9,7 @@ export default function useClients() {
 
     const repo: ClientRepository = new ClientCollection();
 
-    const {tableVisible, formVisible, showTable, showForm} = useTableOrForm()
+    const { tableVisible, formVisible, showTable, showForm } = useTableOrForm()
 
     const [client, setClient] = useState<Client>(Client.empty());
     const [clients, setClients] = useState<Client[]>([]);
