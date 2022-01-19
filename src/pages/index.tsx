@@ -6,6 +6,9 @@ import Form from "../components/Form";
 import { useState } from "react";
 
 export default function Home() {
+  const [client, setClient] = useState<Client>(Client.empty());
+  const [visible, setVisible] = useState<"table" | "form">("table");
+
   const clients = [
     new Client("Galeno", 19, "1"),
     new Client("Lua", 18, "2"),
@@ -15,16 +18,20 @@ export default function Home() {
   ];
 
   function selectedClient(client: Client) {
-    console.log(client.name);
+    setClient(client);
+    setVisible("form");
   }
   function deletedClient(client: Client) {
     console.log(`usuário ${client.name} foi apagado`);
   }
   function saveClient(client: Client) {
     console.log(client);
+    setVisible("table");
   }
-
-  const [visible, setVisible] = useState<"table" | "form">("table");
+  function newClient(client: Client) {
+    setClient(Client.empty());
+    setVisible("form");
+  }
 
   return (
     <div
@@ -33,11 +40,12 @@ export default function Home() {
       from-purple-500 to-blue-300 text-white`}
     >
       <Layout title="Simple | Sig-in">
+        
         {visible === "table" ? (
           <>
             <div className={`flex justify-end`}>
               <Button
-                onClick={() => setVisible("form")}
+                onClick={newClient}
                 className="mb-4 bg-gradient-to-r from-green-400 to-green-600"
               >
                 New Client
@@ -51,7 +59,7 @@ export default function Home() {
           </>
         ) : (
           <Form
-            client={clients[2]}
+            client={client}
             clientChanged={saveClient}
             cancel={() => setVisible("table")}
           />
